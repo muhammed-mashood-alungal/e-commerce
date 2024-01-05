@@ -1,0 +1,130 @@
+<section class="container" >
+  {{#if products}}
+  <h2>Your Cart</h2>
+  <hr>
+   {{#each products}}
+  <div class="card">
+    <div class="row">
+      <div class="col-md-3">
+          <th scope="row"><img src="/product-images/{{this.product._id}}/0.jpg" alt="" class="cart-product-img">
+      </div>
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-5">
+               <h3>{{this.product.Name}}</h3>
+               <h5>Rs.{{this.product.price}}</h5>
+          </div>
+           <div class="col-md-4">
+            <div>
+               <button class="btn btn-primary" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button>
+         <span id="{{this.product._id}}">{{this.quantity}}</span>
+         <button class="btn btn-primary" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button>
+         </div><br>
+         <div>
+           <a href="/remove-from-cart?cartId={{this._id}}&&prodId={{this.product._id}}"  onclick="return confirm('we are removing {{this.product.Name}} from your cart')"><button class="btn remove-btn" >Remove</button></a><br>
+           <br>
+           <a href="/product-details/{{this.product._id}}" class="viewDetails-btn btn">View Details</a>
+         </div>
+
+          </div>
+
+        </div>
+          
+      </div>
+    </div>
+  </div>
+  {{/each}}
+
+<div class="card">
+  <div class="row">
+    <h4 class="col-md-6">Total:{{total}}</h4>
+    <p class="col-md-6">Inclusive of All Taxes</p>
+  </div>
+ <hr>
+  <a href="/place-order" class="btn btn-success "> <b>PLACE ORDER</b></a>
+
+</div>
+
+<!--<div class="float-right pr-5">
+<h4 class="float-right mr-5 mt-3">Total:</h4><br>
+<h4 class="float-right mr-5  " style="color: red;" id="total-amount">{{total}}</h4> <br>
+ <a href="/place-order" class="btn btn-success mt-2 mr-5" style="width: 100%;"> <b>PLACE ORDER</b></a>
+    </div>-->
+
+{{else}}
+
+<div class="empty-cart-msg" style="">
+<div><h3>Sorry your cart is empty.</h3></div> <br>
+ <div><a href="/" class="btn btn-success">Continue shopping</a></div>
+ </div>
+
+{{/if}}
+</section>
+<script> 
+  function changeQuantity(cartId,proId,count){ 
+    quantity=parseInt(document.getElementById(proId).innerHTML)
+    count=parseInt(count)
+   
+    $.ajax({
+      url:'/change-product-quantity' ,
+      method:'post',
+      data:{
+        cart:cartId,
+        product:proId,
+        count:count,
+        quantity:quantity 
+      },
+      success:(response)=>{
+        if(response.removeProduct){
+          alert('product is removing from cart..')
+          location.reload() 
+        }else if(response.maxQuantity){
+          alert('Sorry,stock is over!')
+        }
+        else{
+          document.getElementById(proId).innerHTML=quantity+count
+           document.getElementById("total-amount").innerHTML=response.total
+        }
+
+      }
+    })
+  } 
+  
+</script>
+ <style>
+
+  .empty-cart-msg{
+    height: 30rem; 
+    display:flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .cart-product-img{
+    height: 100%;
+    width: 100%;
+  }
+   .card{
+    width:90%;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 3rem;
+     box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+  .remove-btn{
+    color:brown;
+    border: 1px solid brown;
+  }
+  .remove-btn:hover{
+    border:0;
+    background-color: rgba(182, 34, 34, 0.274);
+  }
+  .viewDetails-btn{
+    color:rgb(42, 165, 118);
+    border: 1px solid rgb(42, 165, 118);
+  }
+  .viewDetails-btn:hover{
+    border:0;
+    background-color: rgb(42, 165, 118);
+  }
+ </style>

@@ -1,0 +1,142 @@
+<section class="container">
+    <div>
+    <div  class="card mt-5 ">
+         <form method="post" id="checkOut-form"> 
+       <h2>Enter delivery details</h2>
+       <hr>
+        <label for="">Address: </label><br>
+        <textarea name="address" id="" cols="10" rows="4"></textarea> <br>
+        <div class="row">
+          <div class="col-md-4 col-lg-3 ">
+             <label for="" >Full Name</label><br>
+        <input type="text" class="details-input " name="name" >
+          </div>
+           <div class="col-md-6 col-lg-3 ">
+             <label for="" >Mobile Number </label><br>
+        <input type="number" class="details-input " name="mob-no" >
+          </div>
+           <div class="col-md-6 col-lg-3 ">
+              <label for="">Pin Code:</label><br>
+        <input type="number"  class="details-input " name="pin-code"><br>
+          </div>
+         
+          
+         
+         
+        </div>
+         
+       <input type="text" name="user" value="{{user._id}}" hidden >
+       <input type="text" name="ProdId" value="{{prodId}}" hidden >
+       <input type="text" name="quantity" value="{{quantity}}" hidden >
+       <input type="text" name="total" value="{{total}}" hidden >
+    </div>
+    <div   class="mt-5 card">
+       <h3>Total Rs.{{total}}</h3>
+       <hr>
+       <div class="row">
+          <input type="radio" checked class="col-2 radio-input" name="payment-method" value="COD">
+       <label for="" class="">COD</label>
+       </div><br>
+       <div class="row">
+         <input type="radio"  class="col-2 radio-input" name="payment-method" value="ONLINE-PAYMENT">
+         <label for="">Online Payment</label>
+       </div>
+       <button class="btn btn-success" type="submit">CHECK OUT</button>
+    </div>
+    </div>
+    </form>
+</section> 
+<script>
+ $(document).on('submit', '#checkOut-form', function(event){
+    event.preventDefault();
+    $.ajax({
+  url:'/place-order',
+  method:'post',
+  data:$('#checkOut-form').serialize(),
+  success:(response)=>{ 
+    if(response.codSuccess==true){ 
+      location.href='/order-success'
+    }else{    
+      razorpayPayment(response)
+    }
+  }
+});
+  function razorpayPayment(order){
+    var options = {
+    "key": "rzp_test_W2SbWn1zeYAOwv", // Enter the Key ID generated from the Dashboard
+    "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": " Muhammed Mashood",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id":  order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){ 
+         verifyPayment(response,order)
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+ var rzp1 = new Razorpay(options);
+ rzp1.open();
+  }
+
+ })
+  function verifyPayment(response,order){
+    $.ajax({
+      url:'/verify-payment',
+      method:'post',
+      data:{
+        response,
+        order
+      },
+      success:(response)=>{ 
+      if(response.paymentStatus==true){
+       location.href='/order-success'
+      }else{    
+       console.log('hello')
+      }
+  }
+      })
+    }
+  
+</script>
+<style>
+  .radio-input{
+    margin-top: 5px;
+    width: 20px;
+    height: 20px;
+  }
+  .card{
+    width:90%;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 3rem;
+     box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+textarea{
+        padding: 10px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        width: 80%;
+    border: 0;
+    border-radius: 10px;
+    background: white;
+    }
+    .details-input{
+      margin-bottom: 5px;
+      padding: 10px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                
+    border: 0;
+    border-radius: 10px;
+    background: white;
+    }
+</style>

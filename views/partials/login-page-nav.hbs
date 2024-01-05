@@ -1,0 +1,39 @@
+<header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Shopping cart</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+   <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
+   
+{{#unless admin}} 
+<ul class="navbar-nav mr-auto"> 
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home<span class="sr-only" style="font-weight: bold;">(current)</span></a>
+      </li>
+      </ul>
+   
+       
+   
+
+    <ul class="nav bar">
+    <li class="dropdown">
+    <a class="nav-link dropdown-toggle"  style="margin-left: auto;"href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Add Account
+        </a> 
+    <div class="dropdown-menu"> 
+          <button style="margin:6px; background-color: rgb(2, 141, 222); border: 0px solid; border-radius: 5px;">
+          <a href="/signup" style="color: white; font-family: inherit; text-decoration: none;">Sign up </a></button>
+          <br>
+          <button style="margin:6px; background-color: rgb(6, 87, 200); border: 0px solid; border-radius: 5px;">
+          <a href="/login"  style="color: white; font-family: inherit;text-decoration:none">Login</a></button>
+   
+    </div>
+    
+    
+   </li>
+  </ul>
+  </div>
+  {{/unless}}   
+</nav>
+     </header> 

@@ -1,0 +1,57 @@
+<section class="container">
+    <div>
+        <h1>Todays Sales</h1>
+        <hr>
+    </div>
+  {{#each sales}}
+    <div class="card " id="card">
+       <div class="content">
+        <div class="row" id="row">
+        <div class="dt col-4"> <p >{{this.salesCreatedAt}}</p></div>
+        <div class="col-4"><h6>Total:Rs.{{this.total}}</h6></div>
+          
+        </div>
+        <div class="address-div"> 
+          <h6>Address</h6>
+          <div><p>{{this.orderDetails.address}},{{this.orderDetails.mobile}},{{this.orderDetails.pinCode}}</p></div>
+         
+        </div>
+         
+      
+     </div></div>
+  {{/each}}
+
+</section>
+
+<style>
+    .dt{
+    width: 50%;
+  }
+  #card{
+    border:1px solid  rgb(54, 54, 98) ;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px;
+     width:  70%;
+     height: fit-content;
+   
+  }
+  h6{
+     margin-bottom: 0;
+      
+  }
+  #card:hover{
+    background-color: rgb(246, 251, 255);
+  }
+  p{
+    font-size: small;
+  }
+  #row{
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .address-div{
+    width: 50%;
+  }
+  
+</style>

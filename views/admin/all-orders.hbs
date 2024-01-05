@@ -1,0 +1,313 @@
+<section class="container all-orders-section" id="all-orders-section">
+   <div id="head-1 " class="row mt-3">
+    <h3 class="col-4 ">All Orders</h3>
+    <a href="#delivered-order-section" class="col-3">Delivered Orders</a>
+    <a href="#cancelled-order-section" class="col-3">Cancelled Orders</a>
+    
+  </div>
+  <hr>
+  {{#if details}} 
+  <div class="all-orders-container mt-3">
+  {{#each details}}
+  
+     <div class="card " id="card">
+       <div class="content">
+        <div><h6>  ORDER ID: {{this._id}}</h6>
+        <hr></div>
+        <div class="row" id="row">
+        <div class="dt col-4"> <p >{{this.CreatedAt}}</p></div>
+        <div class="col-3"><h6>Total:Rs.{{this.total}}</h6></div>
+         <div class="col-3"><button onclick="showReasonFieldDiv('{{this._id}}')" id="cancel-order">Cancel Order</button></div>
+          <div class="col-2">
+            <a href="/admin/order-details/{{this._id}}"><button id="">view</button></a>
+        </div>
+      <!-- <div class="col-4"><a href="/admin/cancel-this-order/{{this._id}}">Cancel this Order</a></div> -->
+        </div>
+        
+        <div class="address-div "> 
+          <h6>Address</h6>
+          <div><p>{{this.orderDetails.address}},{{this.orderDetails.mobile}},{{this.orderDetails.pinCode}}</p></div>
+         
+        </div>
+       
+         
+      
+     </div> 
+     {{#eq this.deliveryStatus 'Delivered' }} 
+          <h4 id="delivered-txt">Delivered</h4> 
+     {{else}}
+     {{#eq this.deliveryStatus 'Cancelled'}}
+       <h4 id="Cancelled-txt">Cancelled</h4>
+     {{else}}
+      <hr> 
+        <select id="deliveryStatus" onchange="changeStatus(event,'{{this._id}}')" >
+          <option id="currentStatus" class="currentStatus">{{this.deliveryStatus}}</option>
+           <option id="ordered">Ordered</option>
+           <option id="shipped">Shipped</option>
+           <option id="delivered">Delivered</option>
+            
+        </select>
+     {{/eq}}
+     
+       {{/eq}}
+     </div>
+      
+
+    
+     {{/each}}
+     
+  {{else}} 
+  <div class="no-orders-msg">
+    <h2> Your customers nothing ordered yet</h2>  
+    </div>
+    </div>
+  {{/if}}
+ </section>
+
+<section class="container delivered-order-section mt-5" id="delivered-order-section">
+ <div class="delivered-orders-container">
+   {{#if deliveredOrders}}
+   <h3>Delivered Orders</h3>
+   <hr>
+   {{#each deliveredOrders}} 
+     <div class="card " id="card">
+       <div class="content">
+         <div><h6>  ORDER ID: {{this._id}}</h6>
+        <hr></div>
+        <div class="row" id="row">
+        <div class="dt col-4"> <p >{{this.saleCreatedAt}}</p></div>
+        <div class="col-4"><h6>Total:Rs.{{this.total}}</h6></div>
+           <div class="col-4">
+            <a href="/admin/order-details/{{this._id}}"><button id="">view</button></a>
+        </div>
+        </div>
+        <div class="address-div"> 
+          <h6>Address</h6>
+          <div><p>{{this.orderDetails.address}},{{this.orderDetails.mobile}},{{this.orderDetails.pinCode}}</p></div>
+         
+        </div>
+         
+      
+     </div></div>
+     {{/each}}
+   {{else}}  
+   <h3>No Delivered Orders Founded</h3>
+   {{/if}}
+ </div>
+   </section>
+
+
+<section class="container cancelled-order-section mt-5" id="cancelled-order-section">
+ <div class="cancelled-orders-container">
+   {{#if cancelledorder}}
+   <h3>Cancelled Orders</h3>
+   <hr>
+   {{#each cancelledorder}}
+   
+     <div class="card " id="card">
+       <div class="content">
+         <div><h6>  ORDER ID: {{this._id}}</h6>
+        <hr></div>
+        <div class="row" id="row">
+        <div class="dt col-4"> <p >{{this.cancelCreatedAt}}</p></div>
+        <div class="col-4"><h6>Total:Rs.{{this.total}}</h6></div>
+           <div class="col-2">
+            <a href="/admin/order-details/{{this._id}}"><button id="">view</button></a>
+        </div>
+        </div>
+        <div class="address-div"> 
+          <h6>Address</h6>
+          <div><p>{{this.orderDetails.address}},{{this.orderDetails.mobile}},{{this.orderDetails.pinCode}}</p></div>
+         
+        </div>
+         
+      
+     </div></div>
+     {{/each}}
+   {{else}}  
+   <h3>No Cancelled Orders Founded</h3>
+   {{/if}}
+ </div>
+   </section>
+</table>
+
+
+
+  
+<div class="reason-field" id="reason-field-div"  >
+         <div>
+          <form   method="post" id="reason-form">
+                <h5>Reason for cancel</h5>
+                 <input type="text" id="orderId" name="orderId" hidden  >
+                 <textarea   id="" required cols="35" rows="3" name="reason"></textarea>
+                  <div class="mt-5 float-right">
+                    <button onclick="hideReasonFieldDiv()"  id="reason-cancel">Cancel</button>
+                 <button id="reason-submit"  type="button">Submit</button>
+                  </div>
+                 
+          </form>
+           
+         </div>
+     </div>
+ 
+ 
+<style>
+  footer{
+    margin-top: 100vh;
+  }
+   #Cancelled-txt{
+    color: red;
+   }
+   #delivered-txt{
+    color: green;
+   }
+  #cancel-order:hover{
+  background-color: aliceblue;
+  }
+  #reason-cancel{
+    border: 0.5px solid rgb(34, 69, 0);
+   border-radius: 5px;
+  }
+  #reason-submit{
+    border-radius: 5px;
+    color: aliceblue;
+    background-color: rgb(34, 69, 0);
+  }
+  #reason-submit:hover{
+    background-color: aliceblue;
+    color:rgb(34, 69, 0) ;
+    border: 0.5px solid rgb(34, 69, 0);
+  }
+    
+  button:hover{
+    color:rgb(125, 125, 125)
+  }
+ 
+   button{
+    background-color: transparent;
+    border: 0;
+
+   }
+  .dt{
+    width: 50%;
+  }
+  #card{
+    border:1px solid  rgb(54, 54, 98) ;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px;
+     width:  70%;
+     height: fit-content;
+   
+  }
+  h6{
+     margin-bottom: 0;
+      
+  }
+  #card:hover{
+    background-color: rgb(246, 251, 255);
+  }
+  p{
+    font-size: small;
+  }
+  #row{
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .address-div{
+    width: 50%;
+  }
+  
+  #loader{
+    background-color: rgb(148, 183, 212);
+    width: 50%;
+    height: 5px;
+    border-radius: 20px;
+  }
+  #progress{
+    background-color: rgb(27, 120, 202);
+    width: 30%;
+    height: 5px;
+    border-radius: 20px;
+    transition-delay: 0.5s;
+  }
+  .currentStatus{
+    background-color: rgb(120, 120, 120);
+    color: white;
+  }
+  .reason-field{
+    display: none;
+    width: 20rem;
+    height: 15rem;
+    position: absolute;
+    z-index: 100;
+    background-color: aliceblue;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   padding-top: 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 20px;
+  }
+  textarea{
+    padding: 10px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        width: 90%;
+    border: 0;
+    border-radius: 10px;
+    background: white;
+  }
+  
+   
+</style>
+
+ 
+<script>
+  
+
+   function hideReasonFieldDiv(){
+    document.getElementById('reason-field-div').style.display='none'
+     document.body.style.background='none'
+      document.getElementById('orderId').value=null
+  }
+  function showReasonFieldDiv(orderId){
+     
+    document.getElementById('reason-field-div').style.display='block'
+    document.body.style.background='#aaa9ae'
+    document.getElementById('orderId').value=orderId
+  }
+
+const reasonSubmit=document.querySelector('#reason-submit')
+ reasonSubmit.addEventListener( "click",()=>{
+    console.log('hfushfsaf')
+    $.ajax({
+      url:'/admin/cancel-this-order',
+      method:'post',
+      data:$('#reason-form').serialize(),
+      success(response){
+         console.log('hey')
+          hideReasonFieldDiv()
+      }
+    })
+ })
+
+   
+
+ function changeStatus(event,orderId){ 
+  
+  $.ajax({
+    url:'/admin/change-status',
+    method:'post',
+    data:{
+      status:event.target.value,
+      orderId:orderId
+    },
+    success:(response)=>{
+       document.getElementById('currentStatus').innerHTML= response.status
+    
+    }
+  
+  })
+     
+  }
+</script>

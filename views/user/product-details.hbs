@@ -1,0 +1,108 @@
+<section class="container">
+     <div class="card">
+        <div class="row">
+      <h5 class="col-8">PRODUCT ID : {{details._id}}</h5>
+     
+      </div>
+      <hr>
+      <table>
+        <tr>
+            <td class="first-col"> Images</td>
+             <td class="sec-col">
+               {{#each imgIndex}}
+            <img src="/product-images/{{../details._id}}/{{this.index}}.jpg" alt="" style="width:100px;height:auto;" id="imgView">
+            {{/each}}
+             </td >
+        </tr>
+        <tr>
+            <td class="first-col"> Product Added At</td>
+             <td class="sec-col">: {{details.createdAt}}</td >
+        </tr>
+        <tr>
+            <td class="first-col">Name</td>
+             <td class="sec-col">: {{details.Name}}</td >
+        </tr>
+        <tr>
+            <td class="first-col">Category</td>
+             <td class="sec-col">: {{details.category}}</td >
+        </tr>
+          <tr>
+            <td class="first-col">Description</td>
+             <td class="sec-col">: {{details.description}}</td >
+        </tr>
+           <tr>
+            <td class="first-col">Price</td>
+             <td class="sec-col">: {{details.price}}</td >
+        </tr>
+    <tr>
+        <input type="text" hidden value="{{details.rating}}"  class="rating">
+                   <input type="text" hidden value="{{details._id}}"  class="product">
+        
+        <td class="first-col">Rating</td>
+        <td class="sec-col">
+           
+                        <div id="rating-stars">:
+        <i id="{{details._id}}1" class="fa-sharp fa-regular fa-star fa-sm star {{details._id}}1"></i>
+        <i id="{{details._id}}2" class="fa-sharp fa-regular fa-star fa-sm star {{details._id}}2"></i>
+        <i id="{{details._id}}3" class="fa-sharp fa-regular fa-star fa-sm star {{details._id}}3"></i>
+        <i id="{{details._id}}4" class="fa-sharp fa-regular fa-star fa-sm star {{details._id}}4"></i>
+        <i id="{{details._id}}5" class="fa-sharp fa-regular fa-star fa-sm star {{details._id}}5"></i>
+           
+        </div>
+                    
+        </td>
+        
+        
+    </tr>
+        
+
+
+       
+       
+
+      </table>
+
+   </div>
+
+</section>
+<style>
+     .star{
+        color:  #dbbe00;
+    }
+.card{
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 3rem;
+     box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+#edit-btn{
+    border-radius: 5px;
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    color: aliceblue;
+    size: bold;
+    background-color: rgb(56, 159, 56);
+    height: 1.5rem;
+    width: 3rem;
+}
+#edit-btn:hover{
+    background-color: aliceblue;
+    color: rgb(56, 159, 56) ;
+}
+</style>
+<script>
+     var rating=0
+        document.addEventListener('DOMContentLoaded',()=>{
+           rating=document.querySelector('.rating').value
+           var product =document.querySelector('.product').value
+
+           if(rating){
+            for(let j=1;j<=rating;j++){
+               document.getElementById(product+j).style.color='green'
+               console.log('greenedd'+j)
+            }
+             }
+        
+        })
+</script>

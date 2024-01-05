@@ -1,0 +1,134 @@
+<section class="container">
+    <div class="row">
+    <div class="col-md-4 category-div">
+        <div class="card">
+        <div>
+    <form action="/admin/add-category"  method="post"> 
+     <div class="row">
+     <h5 class="h6-category">Add Category</h5>
+    <button type="submit" class="btn btn-success add-btn">Add</button></div>
+     <input type="text" id="newCategory"  name="Category">
+     </form>
+    </div>
+    <hr>
+     <div class="table-div">
+    <h6>Available Categories</h6>
+     <table id="myTble" class="table table-sm" >
+     <thead>
+        <tr>
+            <th>Category</th>
+            <th>option</th>
+        </tr>
+        </thead>  
+        
+        {{#each Categories}}
+        <tbody>   
+        <tr> 
+        <td class="table-data" > {{this.Category}} </td> 
+         <td><a href="/admin/delete-category/{{this.Category}}" style="text-decoration: none;">
+            <i class="fa-solid fa-trash fa-sm trash-btn"></i></a></td> 
+        </tr> 
+          </tbody>
+         {{/each}}
+  
+    </table>
+   </div>
+    </div>
+    </div>
+    <div class="col-md-4 banner-div">
+          <div class="card">
+    <form action="/admin/add-banner" method="post" enctype="multipart/form-data">
+      <div class="row">
+     <h5 class="h6-category">Add Banner Image</h5>
+    <button type="submit" class="btn btn-success add-btn">Add</button></div>
+    <input type="file" name="bannerImg" id="banner-img"> 
+    </form>
+  
+    <table class="table table-sm " id="myTable">
+     <thead>
+        <tr>
+            <th>index</th>
+            <th>Banner Image</th>
+            <th>Option</th>
+        </tr> 
+            
+     </thead>
+     <tbody>
+        {{#each bannerImages}}
+        <tr>
+             
+            <td><img src="/banner-images/{{this.imageName}}" class="banner-image" alt=""></td>
+            <td><a href="/admin/delete-banner/{{this.imageName}}" style="text-decoration: none;">
+            <i class="fa-solid fa-trash fa-sm trash-btn"></i></a></td> 
+            
+        </tr>  
+        {{/each}}
+        
+            
+        
+     </tbody>
+    </table>
+
+    </div>
+    </div>
+    </div>
+</section>
+
+ 
+
+
+<script>
+    $(document).ready( function () {
+    $('#myTble').DataTable();
+    
+  } );
+   
+    // Get the reference to the table
+    const table = document.getElementById('myTable');
+    
+    // Loop through the rows and add index numbers to each row
+    for (let i = 1; i < table.rows.length; i++) {
+      const cell = document.createElement('td');
+      cell.textContent = i;
+      
+      table.rows[i].insertBefore(cell, table.rows[i].firstChild);
+    }
+   
+    
+   
+</script>
+
+<style>
+    .trash-btn:hover{
+        color: rgb(72, 94, 112);
+
+    }
+     .banner-div ,.category-div{
+        margin-top: 10px;
+     }
+    .dataTables_wrapper .dataTables_info{
+      display: none;
+    }
+    .add-btn{
+        margin-left: 20px;
+        margin-bottom: 1px;
+        width: fit-content;
+        padding: 3px;
+    }
+    .h6-category{
+       margin-left: 20px;
+    }
+    .table-data:hover{
+        background-color: aliceblue;
+    }
+    .banner-image{
+        width: 50px;
+        height: 50px;
+    }
+    .card{
+        padding: 10px;
+         border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+     
+</style>

@@ -1,0 +1,347 @@
+<section class="container ">
+    <form action="" method="post"> 
+    <div class="row mt-5 " style="align-content: center;">
+         <p id="productId" hidden>{{product._id}}</p>
+        <div class="col-md-6 img-div">  
+            <img src="/product-images/{{product._id}}/0.jpg" alt="" id="MainImg" class="product-img " ><br>  
+             <div>
+            {{#each index}}  
+            <img src="/product-images/{{../product._id}}/{{this.index}}.jpg" alt="" id="{{this.index}}"  
+             onclick="changeMainImg('{{../product._id}}','{{this.index}}')" class="product-sub-img" > 
+            
+            {{/each}}
+              </div>
+                
+        </div>
+        
+        <div class="col-md-6 content-card">
+            <div class="content-div">
+                 <input type="text" hidden value="{{product.rating}}"  class="rating">
+                   <input type="text" hidden value="{{product._id}}"  class="product">
+            <h1>{{product.Name}}</h1>
+            <p>{{product.description}}</p>
+            <h3>Rs.{{product.price}}</h3>
+            <div  >
+                        <div id="rating-stars">
+        <i id="{{product._id}}1" class="fa-sharp fa-regular fa-star fa-sm  rating-star {{product._id}}1"></i>
+        <i id="{{product._id}}2" class="fa-sharp fa-regular fa-star fa-sm  rating-star {{product._id}}2"></i>
+        <i id="{{product._id}}3" class="fa-sharp fa-regular fa-star fa-sm  rating-star {{product._id}}3"></i>
+        <i id="{{product._id}}4" class="fa-sharp fa-regular fa-star fa-sm  rating-star  {{product._id}}4"></i>
+        <i id="{{product._id}}5" class="fa-sharp fa-regular fa-star fa-sm  rating-star  {{product._id}}5"></i>
+           
+        </div>
+                    </div>
+            <div>
+            <label for=""> Quantity</label>
+             <input type="number" name="quantity" value="1" style="width: 60px;" max="{{product.quantity}}" min="1" onclick="changeQuantity(event,'{{product.price}}','{{product._id}}')">
+             </div>
+             <br>
+              
+             <button  onclick="addToCart('{{product._id}}')"  id="addToCartBtn" class="btn btn-primary addToCartBtn card-button"   type="button"> Add to cart  </button>
+              
+           </div>
+          
+        </div>
+        <br>
+
+        
+    </div> 
+    <div class="row">
+    <div class=" total-card card" id="card"> 
+    <p>Inclusive of all taxes.</p>
+    <h4 class="">Total: <span id="totalamnt">{{product.price}}</span></h4> 
+        <button type="submit" style="width: 100%;" class="btn btn-success">Buy Now</button>
+       
+    </div>
+    </div>
+     </form>
+    
+</section>
+
+<section class="container">
+    
+      <div id="add-rating"> 
+    <div>
+        <h2>Rate This Product</h2> 
+    </div>
+  
+        <div id="rating-stars">
+        <i id="1" class="fa-sharp fa-regular fa-star fa-sm star"></i>
+        <i id="2" class="fa-sharp fa-regular fa-star fa-sm star"></i>
+        <i id="3" class="fa-sharp fa-regular fa-star fa-sm star"></i>
+        <i id="4" class="fa-sharp fa-regular fa-star fa-sm star"></i>
+        <i id="5" class="fa-sharp fa-regular fa-star fa-sm star"></i>
+           
+        </div>
+      
+        <div  class="row">
+            
+        <textarea   name="feedback" id="feedback" cols="30" rows="2" placeholder="Write your feedback here....."></textarea> 
+         
+        <div class="send-button-container">
+             <i class="fa-sharp fa-solid fa-paper-plane fa-lg"   id="send-button"></i> 
+        </div>
+        
+        </div>
+    </div>
+    <div class="all-ratings"> 
+        <h2> See All Ratings</h2>
+        <div class="row">
+            {{#each product.ratings}}
+            <div class="col-md-6">
+                 
+        <div class="each-ratings">
+             <input type="text" hidden value="{{this.rating}}"  id="user-rating">
+            <div class="row">
+                <p>Date</p>
+                <p>Time</p>
+            </div>
+            <div class="row"> 
+                <div > 
+                     <div id="user-rating-stars">
+        <i id="1" class="fa-sharp fa-regular fa-star fa-sm user-rating-star"></i>
+        <i id="2" class="fa-sharp fa-regular fa-star fa-sm user-rating-star"></i>
+        <i id="3" class="fa-sharp fa-regular fa-star fa-sm user-rating-star"></i>
+        <i id="4" class="fa-sharp fa-regular fa-star fa-sm user-rating-star"></i>
+        <i id="5" class="fa-sharp fa-regular fa-star fa-sm user-rating-star"></i>
+           
+        </div>
+                    <p>{{this.feedback}}</p>
+                </div>
+            </div>
+
+        </div>
+        </div>
+        {{/each}}
+        </div>
+    </div>
+</section>
+ 
+<style>
+     .card{
+    width:100%;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 3rem;
+     box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+    .content-card{
+        display: flex;
+    justify-content: center;
+   
+    margin-bottom: 30px
+    }
+    .star{
+        color:  #dbbe00;
+    }
+    .rating-star{
+        color:  #dbbe00;
+    }
+    .all-ratings{
+        margin: 3rem;
+    }
+    .send-button-container{
+        margin-left: 10px;
+    }
+    #send-button{
+       color:  #0eaf46;
+    }
+    #send-button:hover{
+          color:  #045d33;
+    }
+    textarea{
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 80%;
+    border: 0;
+    border-radius: 10px;
+    background: white;
+    }
+     #add-rating{
+    width: 80%;
+   
+    padding: 20px;
+    margin: 2rem;
+    border-radius: 10px;
+    background-color: #eef8f9;
+     }
+    
+    .product-img{
+    width: 100%;
+    height: auto;
+    border: 1px solid;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+     
+    }
+    .product-sub-img{
+    width: 4rem;
+    height:4rem; 
+    margin: 5px;
+    border: 1px solid;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .img-div{
+     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    }
+    .content-div{
+    display: grid; 
+    width: 25rem;
+    height: 25rem; 
+    border-radius: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .content-div  :not(.addToCartBtn){
+        padding: 10px;
+    }
+      .card-button {
+        align-items: center;
+        font-size: large;
+        display: flex;
+        justify-content: center;
+        padding:10px 0;
+         
+        width: 100%;
+        background-color: #1F487E;
+        color: #fff;
+        border-radius: 0 0 30px 30px;
+    }
+        .card-button:hover {
+        text-decoration: none;
+        background-color: #1D3461;
+        color: #fff;
+
+    }
+    .each-ratings{
+    width:100%;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 3rem;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+    }
+
+ 
+
+
+</style>
+
+ <script>
+      document.addEventListener('DOMContentLoaded',()=>{
+       var eachRating= document.querySelectorAll('.each-ratings')
+       eachRating.forEach(()=>{
+          var userRating= eachRating.getElementById('user-rating')
+          var star=document.createElement('i')
+          star.classList.add()
+       })
+      })
+      
+     var rating=0
+        document.addEventListener('DOMContentLoaded',()=>{
+        
+         
+         
+       
+           rating=document.querySelector('.rating').value
+           var product =document.querySelector('.product').value
+
+           if(rating){
+            for(let j=1;j<=rating;j++){
+               document.getElementById(product+j).style.color='green'
+               console.log('greenedd'+j)
+            }
+             }
+
+
+             rating=document.querySelector('.rating').value
+          
+
+         
+        
+        })
+
+
+  var rating=0
+      document.addEventListener('DOMContentLoaded',()=>{
+  const stars = document.querySelectorAll('.star');
+   
+    stars.forEach((star, index) => {
+    star.addEventListener('click', function() {
+      rating=star.id
+       console.log(index)
+       console.log(rating)
+      if(rating){
+        stars.forEach((star,index)=>{
+           if(star.id<=rating){
+            star.style.color='green'
+           }
+        })
+      }
+    });
+  });
+      
+ })
+ document.getElementById('send-button').addEventListener('click',()=>{
+    let feedback =document.getElementById('feedback').value
+     rating=rating
+    let product=document.getElementById('productId').textContent
+    console.log(feedback,rating,product)
+    if(!rating){
+        alert('Please select  your rating before submit the feedback')
+    }else{
+   $.ajax({
+        url:'/add-feedback',
+        method:'post',
+        data:{
+            feedback,rating,product
+        },
+        success:(response)=>{ 
+         alert('Your feedback added successfully')
+         document.getElementById('feedback').value=null
+
+         const stars=document.querySelectorAll('.star')
+           stars.forEach((star,index)=>{
+            
+            star.style.color=' #dbbe00'
+        
+        })
+         
+
+         
+          
+        }
+    })
+
+   
+    }
+ 
+ })
+    function changeQuantity(event,price,prodId){ 
+         document.getElementById('totalamnt').innerHTML=event.target.value*price 
+    }
+  
+   
+    function changeMainImg(prodId,img_index){
+         
+        let tempSrc=document.getElementById('MainImg').src
+        let MainImgSrc=document.getElementById(img_index).src
+        let subImgSrc=tempSrc
+         
+        console.log("index"+img_index)
+        console.log('main'+MainImgSrc)
+        console.log('sub'+subImgSrc)
+        console.log("temp"+tempSrc)
+         
+        
+        document.getElementById('MainImg').src=MainImgSrc
+        document.getElementById(img_index).src= subImgSrc
+         
+        
+    }
+  
+
+    
+</script> 

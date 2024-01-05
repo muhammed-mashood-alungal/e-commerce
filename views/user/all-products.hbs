@@ -1,0 +1,130 @@
+<section>
+    <div class="heading" ><h2>All Products</h2></div>
+</section>
+
+<section class="container">
+
+{{#each productsInCategories}}
+ 
+<section class="category-section ">
+   <h4>{{this.category}}</h4>
+   <hr>
+   <div class="row">
+    {{#each this.product}}
+         <div class="col-md-4 col-6 col-lg-3 product-div ">
+                <div class="card-sl  "  >
+                      <input type="text" hidden value="{{this.rating}}"  class="rating">
+                   <input type="text" hidden value="{{this._id}}"  class="product">
+                    <div class="card-image">
+                        <img
+                            src="/product-images/{{this._id}}/0.jpg" />
+                    </div>
+
+                    
+                    <div class="card-heading">
+                        {{this.Name}}
+                    </div>
+                    <div class="card-text "  >
+                        <div id="rating-stars">
+        <i id="{{this._id}}1" class="fa-sharp fa-regular fa-star fa-sm star {{this._id}}1"></i>
+        <i id="{{this._id}}2" class="fa-sharp fa-regular fa-star fa-sm star {{this._id}}2"></i>
+        <i id="{{this._id}}3" class="fa-sharp fa-regular fa-star fa-sm star {{this._id}}3"></i>
+        <i id="{{this._id}}4" class="fa-sharp fa-regular fa-star fa-sm star {{this._id}}4"></i>
+        <i id="{{this._id}}5" class="fa-sharp fa-regular fa-star fa-sm star {{this._id}}5"></i>
+           
+        </div>
+                    </div>
+                    <div class="card-text">
+                        Rs.{{this.price}}
+                    </div>
+                    <a href="/buy-now/{{this._id}}" class="card-button">Buy now</a>
+                </div>
+            </div>
+    {{/each}}
+    </div>
+</section>
+ 
+{{/each}}
+</section>
+
+<script>
+    var rating=0
+        document.addEventListener('DOMContentLoaded',()=>{
+        let products=document.querySelectorAll('.card-sl')
+
+         for(let i=0;i<=products.length;i++){
+       
+           rating=products[i].querySelector('.rating').value
+           var product =products[i].querySelector('.product').value
+
+           if(rating){
+           
+            for(let j=1;j<=rating;j++){
+               document.getElementById(product+j).style.color='green'
+               console.log('greenedd'+j)
+            }
+             }
+        }
+        })
+</script>
+<style>
+    .heading{
+        margin: 20px;
+        display: flex;
+    justify-content:center ;
+    }
+    .category-section{
+       
+        margin-bottom: 30px;
+        padding: 10px;
+         border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+   
+     .card-sl {
+      margin-bottom: 30px;
+           
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+   
+
+    .card-image img {
+        max-height: 100%;
+        max-width: 100%;
+        border-radius: 8px 8px 0px 0;
+    }
+
+ 
+    .card-heading {
+        font-size: 18px;
+        font-weight: bold;
+        background: #fff;
+        padding: 10px 15px;
+    }
+
+    .card-text {
+        padding: 10px 15px;
+        background: #fff;
+        font-size: 14px;
+        color: #636262;
+    }
+
+    .card-button {
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+        width: 100%;
+        background-color: #1F487E;
+        color: #fff;
+        border-radius: 0 0 8px 8px;
+    }
+
+    .card-button:hover {
+        text-decoration: none;
+        background-color: #1D3461;
+        color: #fff;
+
+    }
+
+</style>

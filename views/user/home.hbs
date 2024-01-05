@@ -1,0 +1,205 @@
+ 
+    
+      <script>
+       Handlebars.registerHelper('eq', function (a, b, options) {
+        return a === b ? options.fn(this) : options.inverse(this);
+      });
+
+    
+     </script>
+
+
+     <section>
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+   {{#each bannerImages}}
+    <li data-target="#carouselExampleIndicators" data-slide-to="{{this.index}}" {{#eq this.index 0}} class="active" {{/eq}}></li> 
+    {{/each}}
+  </ol>
+  <div class="carousel-inner">
+    {{#each bannerImages}}
+     
+    <div 
+    {{#eq this.index 0}}
+    class="carousel-item active"
+    {{else}}
+    class="carousel-item"
+    {{/eq}}>
+      <img class="d-block w-100"  src="/banner-images/{{this.imageName}}" alt="">
+    </div> 
+    {{/each}}
+  </div>
+  <a class="carousel-control-prev"  href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+     </section>
+     <section class="container " >
+      <h3 class="sub-heading">Latest Arrivals</h3> 
+      <div class="row">
+          
+         {{#each products}}
+           <div class="col-md-4 col-sm-6 col-lg-3 product-div " >
+                <div class="card-sl  "  id="{{this.rating}}" >
+                  <input type="text" hidden value="{{this.rating}}"  class="rating">
+                   <input type="text" hidden value="{{this._id}}"  class="product">
+                     
+                    <div class="card-image">
+                        <img
+                            src="/product-images/{{this._id}}/0.jpg" />
+                    </div>
+
+                    
+                    <div class="card-heading">
+                        {{this.Name}}
+                    </div>
+                    <div class="card-text "  >
+                        <div id="rating-stars">
+        <i id="{{this._id}}1" class="fa-sharp fa-regular fa-star fa-sm star {{this._id}}1"></i>
+        <i id="{{this._id}}2" class="fa-sharp fa-regular fa-star fa-sm star {{this._id}}2"></i>
+        <i id="{{this._id}}3" class="fa-sharp fa-regular fa-star fa-sm star {{this._id}}3"></i>
+        <i id="{{this._id}}4" class="fa-sharp fa-regular fa-star fa-sm star {{this._id}}4"></i>
+        <i id="{{this._id}}5" class="fa-sharp fa-regular fa-star fa-sm star {{this._id}}5"></i>
+           
+        </div>
+                    </div>
+                    <div class="card-text">
+                        Rs.{{this.price}}
+                    </div>
+                    <a href="/buy-now/{{this._id}}" class="card-button">Buy now</a>
+                </div>
+            </div>
+       
+        {{/each}}
+        </div>
+        <div>
+          
+          <a href="/all-products">All Products</a>
+        </div>
+     </section>
+     <script>
+
+      var rating=0
+        document.addEventListener('DOMContentLoaded',()=>{
+        let products=document.querySelectorAll('.card-sl')
+
+         for(let i=0;i<=products.length;i++){
+       
+           rating=products[i].querySelector('.rating').value
+           var product =products[i].querySelector('.product').value
+
+           if(rating){
+           
+            for(let j=1;j<=rating;j++){
+               document.getElementById(product+j).style.color='green'
+               console.log('greenedd'+j)
+            }
+             }
+         }
+     /* let rating=0
+        products.forEach((product)=>{
+           rating =product.id
+          console.log( "hi",rating)
+           // let rating=product.querySelector('input').value
+           const stars=document.querySelectorAll('.star')
+             if(rating){
+              console.log("s")
+            stars.forEach((star,index)=>{
+           if(star.id<=rating){
+            console.log("n")
+            star.style.color='green'
+           }
+        })
+        rating=0
+             }
+        }) */
+      })
+
+       
+     </script>
+     <style>
+     
+          .product-div{
+          width: 50%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .card-sl {
+      margin-bottom: 30px;
+         height: fit-content; 
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .card-image img {
+        max-height: 100%;
+        max-width: 100%;
+        border-radius: 8px 8px 0px 0;
+    }
+
+ 
+    .card-heading {
+        font-size: 18px;
+        font-weight: bold;
+        background: #fff;
+        padding: 10px 15px;
+    }
+
+    .card-text {
+        padding: 10px 15px;
+        background: #fff;
+        font-size: 14px;
+        color: #636262;
+    }
+
+    .card-button {
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+        width: 100%;
+        background-color: #1F487E;
+        color: #fff;
+        border-radius: 0 0 8px 8px;
+    }
+
+    .card-button:hover {
+        text-decoration: none;
+        background-color: #1D3461;
+        color: #fff;
+
+    }
+
+ 
+      .addToCartBtn{
+        margin-bottom: 3px;
+      }
+      .sub-heading{
+        display: flex;
+        margin: 30px;
+        justify-content: center;
+      }
+       
+     </style>
+    
+   
+     <!--- <script>
+         
+   function showMsg() { 
+    $(".message").hide()
+    document.getElementById('#msg').show()
+
+    $(".addToCartBtn").mouseenter(function() {
+      $(".message").show()
+    }).mouseleave(function() {
+      $(".message").fadeOut();
+    });
+  };
+</script>-->
+         
+ 

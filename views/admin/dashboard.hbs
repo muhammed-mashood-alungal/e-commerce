@@ -1,0 +1,263 @@
+<section class="container">
+  <div class="col-md-10 ">
+    <div class="row ">
+        <div class="col-xl-3 col-lg-6">
+            <a href="/admin/todays-sales-details"  style="text-decoration: none; color: white;">
+            <div class="card l-bg-cherry">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">Revenue Today</h5>
+                    </div>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0">
+                               {{stats.todaysSale}}+
+                            </h2>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            </a>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <a href="/admin/customers"  style="text-decoration: none; color: white;">
+            <div class="card l-bg-blue-dark">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">Customers</h5>
+                    </div>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0">
+                                 {{stats.customersCount}}+
+                            </h2>
+                        </div>
+                         
+                    </div>
+                     
+                </div>
+            
+                </a>
+
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <a href="/admin/all-orders"  style="text-decoration: none; color: white;">
+            <div class="card l-bg-green-dark">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large"><i class="fas fa-ticket-alt"></i></div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">Pending Orders<h5>
+                    </div>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0">
+                                 {{stats.pendingOrders}}+
+                            </h2>
+                        </div>
+                      
+                    </div>
+                    
+                </div>
+            </div>
+            </a>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <a href="/admin/all-sales-details"  style="text-decoration: none; color: white;">
+            <div class="card l-bg-orange-dark">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large"><i class="fas fa-dollar-sign"></i></div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">Total Revenue</h5>
+                    </div>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0">
+                               {{stats.totalSales}}+
+                            </h2>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            </a>
+        </div>
+  </div>
+    </div>
+</div>
+<section class="container">
+   <div class="notify-card">
+    <h2>All Notifications</h2>
+   
+    <hr>
+    {{#if notifications}}
+    <a href="/admin/clear-notifications" class="float-right"> clear all Notifications</a>
+    <div class="row">
+         {{#each notifications}}
+        <div class="col-md-6">
+            <div class="each-notifications mt-3">
+                <div class="row">
+                     <p class="date-time col-10" >{{this.createdAt}}</p>
+                     <a href="/admin/remove-notification/{{this._id}}"  class="col-2">  <li class="fa-solid fa-trash fa-sm trash-btn  "></li></a>
+                </div>
+                
+                <div class="row">
+                    <p>*</p>
+                     <h6 >{{this.message}}</h6>
+                   
+                </div>
+               
+            </div>
+            
+        </div>
+        {{/each}}
+    </div>
+     
+    {{else}}
+    <h3>No Notifications yet..!</h3>
+    {{/if}}
+   </div>
+</section>
+<style>
+    .date-time{
+       font-size: small;
+       width: fit-content;
+    }
+    
+    .each-notifications{
+       
+      padding: 20px;
+      box-shadow:  0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);;
+    }
+    .notify-card{
+        padding: 20px;
+        box-shadow:  0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);;
+    }
+  .card {
+    margin-top: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    margin-bottom: 30px;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+.l-bg-cherry {
+    background: linear-gradient(to right, #493240, #f09) !important;
+    color: #fff;
+}
+
+.l-bg-blue-dark {
+    background: linear-gradient(to right, #373b44, #4286f4) !important;
+    color: #fff;
+}
+
+.l-bg-green-dark {
+    background: linear-gradient(to right, #0a504a, #38ef7d) !important;
+    color: #fff;
+}
+
+.l-bg-orange-dark {
+    background: linear-gradient(to right, #a86008, #ffba56) !important;
+    color: #fff;
+}
+
+.card .card-statistic-3 .card-icon-large .fas, .card .card-statistic-3 .card-icon-large .far, .card .card-statistic-3 .card-icon-large .fab, .card .card-statistic-3 .card-icon-large .fal {
+    font-size: 110px;
+}
+
+.card .card-statistic-3 .card-icon {
+    text-align: center;
+    line-height: 50px;
+    margin-left: 15px;
+    color: #000;
+    position: absolute;
+    right: -5px;
+    top: 20px;
+    opacity: 0.1;
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+}
+
+.l-bg-green {
+    background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
+    color: #fff;
+}
+
+.l-bg-orange {
+    background: linear-gradient(to right, #f9900e, #ffba56) !important;
+    color: #fff;
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+}
+</style>
+
+</section> 
+
+
+<!--
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    #dash-board{
+      font-weight: bold;
+    }
+   
+    .card{
+      padding-top: 5px;
+      width: auto;
+      border: none;
+      margin-top: 20px;
+      text-align: center;
+      background-color: aquamarine;
+    }
+    .card:hover{
+       background-color: rgb(146, 232, 203);
+    }
+    
+  </style>
+
+<body>
+ 
+  <div id="content " class="container">
+   <h2 id="dash-board">Dashboard</h2>
+     <div class="row ">
+      <div class="col-md-3 ">
+        <div class="card" id="total-sale">
+           
+            <h4>Total sale</h4>
+           <p>$0000</p>
+        </div>
+      </div>
+      <div class="col-md-3 ">
+        <div class="card" id="total-customers">
+            
+           <h4>Total Customers</h4>
+           <p>985</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card" id="total-success-orders">
+             
+          <h4>Total Orders</h4>
+           <p>487</p>
+        </div>
+      </div>
+     </div>
+  </div>
+</body>
+

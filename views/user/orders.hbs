@@ -1,0 +1,208 @@
+
+<section class="container">
+  
+  {{#if details}}
+  <div class="row mt-5">
+    <div class="col-9"><h2>Your Orders</h2></div>
+    <div class="col-3"><a href="/clear-orders/{{user._id}}">Clear Delivered/Cancelled orders</a></div>
+  </div>
+  <hr>
+  
+  {{#each details}}
+    
+     <div class="card " id="{{this._id}}">
+       <div class="content">
+        <div class="row" id="row">
+        <div class="dt"> <p >{{this.date}},{{this.time}}</p></div>
+        <div class="total"><h6>Total:Rs.{{this.total}}</h6></div>
+       
+       </div>
+       <div class="row" id="row">
+         
+        <div class="address-div col"> 
+          <h6>Address</h6>
+          <div><p>{{this.orderDetails.address}},{{this.orderDetails.mobile}},{{this.orderDetails.pinCode}}</p></div> 
+        </div>
+
+        <div class="div-view-orders col">
+          
+        <a href="/view-ordered-products/{{this._id}}" class="btn btn-view-orders ">view</a><br>
+                  {{#eq  this.deliveryStatus 'Cancelled'}}
+         {{else}}
+        <button  id="{{this._id}}" class="btn btn-order-cancel">Cancel</button>
+          {{/eq}}
+        </div>
+      
+         
+         </div>
+        
+          
+      
+     </div>
+     {{#eq this.deliveryStatus 'Cancelled'}}
+     <div style="color: red;">
+         <h5>Your Order is Cancelled</h5>
+        <h6>DUE TO  :{{this.cancelReason}}</h6>
+     </div>
+      
+     {{else}}
+      <div>
+       <h6>Order status:{{this.deliveryStatus}}</h6> 
+       <div id="loader" > 
+      <div id="progress" style="width: {{this.statusWidth}}%;"></div>
+       </div> 
+       
+     </div>
+     {{/eq}}
+    
+     
+     </div>
+     {{/each}}
+  {{else}}
+    <h2>Sorry, your order list is empty </h2> 
+  
+  {{/if}}
+</table>
+ </section>
+
+ 
+
+<style>
+  .div-view-orders{ 
+    margin-right: 3px;
+    display: flex;
+    justify-content: flex-end;
+    width:50%
+  }
+  .btn-view-orders{
+    margin-right: 3px;
+    background-color: rgb(12, 35, 97); 
+    color: aliceblue;
+    width: 5rem;
+    height: 40px;
+    
+  }
+  .total{
+    width: 30%;
+  }
+  .btn-order-cancel{
+     background-color:  aliceblue; 
+    color: rgb(12, 35, 97);
+    width: 5rem;
+    height: 40px;
+    border: 1px solid rgb(12, 35, 97);
+  }
+  .dt{
+    width: 50%;
+    
+  }
+  
+   #card{
+    border:1px solid  rgb(54, 54, 98) ;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px;
+     width:  70%;
+     height: fit-content;
+   
+  }
+  
+  h6{
+     margin-bottom: 0;
+      
+  }
+  #card:hover{
+    background-color: rgb(246, 251, 255);
+  }
+  p{
+    font-size: small;
+  }
+  #row{
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .address-div{
+    
+    width: 50%;
+  }
+  
+  #loader{
+    background-color: rgb(148, 183, 212);
+    width: 50%;
+    height: 5px;
+    border-radius: 20px;
+     margin-top: 4px;
+  }
+  @keyframes slideInFromLeft {
+  0% {
+    transform:  perspective(0) ;
+  }
+  100% {
+    transform:perspective(100%)  ;
+  }
+}
+
+  #progress{
+    background-color: rgb(27, 202, 117); 
+    height: 5px;
+    border-radius: 20px;
+    animation: 1s ease-out 0s 1 slideInFromLeft;
+    
+  }
+     
+
+   
+</style>
+ 
+
+ <script>
+ document.addEventListener('DOMContentLoaded',()=>{
+  const buttons = document.querySelectorAll('.btn-order-cancel');
+   
+    buttons.forEach((button, index) => {
+    button.addEventListener('click', function() {
+      var orderId=button.id
+     // var orderId=document.getElementById('orderId').textContent
+    cancelOrder(orderId)
+    console.log("hai"+orderId)
+      
+    });
+  });
+     
+    
+   
+    
+ })
+
+   function cancelOrder(orderId){
+    $.ajax({
+      url:'/cancel-order/'+orderId,
+      method:'get',
+      success(response){ 
+        console.log(response)
+        var message=response.message
+        alert(message) 
+        if(response.status){
+           location.reload()
+        }
+        
+      }
+    })
+   }
+ </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

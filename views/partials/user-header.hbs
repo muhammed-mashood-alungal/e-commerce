@@ -1,0 +1,157 @@
+ <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+         {{#unless home}}
+             <h1 class="btn btn-success" onclick="backButton()">--</h1>
+         {{/unless}}
+  <a class="navbar-brand" href="#">Shopping cart</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+       
+      <li class="nav-item">
+        <a class="nav-link " href="/cart">
+          cart 
+           <span class="badge badge-primary" id="cart-count">{{cartCount}}</span>
+          
+        </a>
+        
+      </li>
+      {{#if user}}
+      <li class="nav-item">
+        <a class="nav-link" href="/orders/{{user._id}}">Orders</a>
+      </li>
+      {{/if}}
+      {{#if home}}
+        <li class="category-button nav-link nav-item" onmouseenter="showCategories()" onclick="hideCategories()"  id="category">Category</li>
+        {{/if}}
+        <br>
+        
+      
+      
+     
+
+       <li class="nav-item nav-item-search">
+       <form class="form-inline " method="post"  action="/search">
+    <input class="form-control mr-sm-2 " type="search" id="search-box" name="searchTerm" placeholder="Search whatever..!" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+  </li>
+   </ul>
+    <ul class="navbar-nav ">
+    <li class="dropdown">
+    <a class="nav-link dropdown-toggle"  style="margin-left: auto;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     {{#if user}}
+      {{user.name}}
+      {{else}}
+      Account
+      {{/if}}
+        </a>
+
+    
+    <div class="dropdown-menu">
+      {{#if user}}
+           <a class="dropdown-item dropdown-item-1" href="/profile">My account</a>
+           <a class="dropdown-item dropdown-item-2"  href="/logout"  >log out</a>
+          {{else}} 
+           <a class="dropdown-item dropdown-item-1" href="/signup">Create An Account</a>
+           <a class="dropdown-item dropdown-item-2"  href="/login">Login </a>
+         <!-- <a href="/signup" style="color: white; font-family: inherit; text-decoration: none;">Sign up </a>
+          <br>
+          <button style="margin:6px; background-color: rgb(6, 87, 200); border: 0px solid; border-radius: 5px;">
+          <a href="/login"  style="color: white; font-family: inherit;text-decoration:none">Login</a></button>-->
+     {{/if}}
+    </div>
+     
+  </div>
+    
+   </li>
+  
+  </ul>
+
+  
+</nav>
+ <div id="showCategories"    onmouseleave="hideCategories()" >
+      <div class="row ">
+      {{#each categories}}
+       <div class="col-3"><a class="category-link" href="/category/{{this.Category}}">{{this.Category}} </a></div>
+       {{/each }}
+     </div> </div>
+     </header> 
+     <script>
+      function backButton(){
+        history.back()
+        console.log('hello')
+      }
+       function showCategories(){
+        document.getElementById('showCategories').style.display='block'
+       }
+        function hideCategories(){
+        document.getElementById('showCategories').style.display='none'
+       }
+     </script>
+   <style>
+     .dropdown-menu{
+        right: 0px;
+        left: auto;
+      }
+    #search-box{
+      width: 20rem;
+    }
+    .navbar{
+      padding-left: 2rem;
+    }
+   .nav-item{
+    margin-left: 20px;
+   }
+   .nav-item:not(.nav-item-search) :hover{
+    background-color: antiquewhite;
+    border-radius: 10px;
+   }
+    .dropdown-item-1{
+     
+      
+      color:rgb(6, 45, 79)
+    }
+     .dropdown-item-1:hover{
+      color:white;
+     background-color: rgb(12, 37, 81) ;
+    }
+    .dropdown-item-2{
+      color: rgb(12, 37, 81);
+    }
+    .dropdown-item-2:hover{
+      color:white;
+     background-color: rgb(12, 37, 81) ;
+    }
+     #showCategories{
+      margin-top: 10px;
+      padding: 10px;
+    width: fit-content;
+    height: max-content;
+    background-color: rgb(15, 11, 63);
+    border-radius: 10px;
+    color: white;
+    display: none;
+    position: absolute;
+    margin-left: 32%; 
+    z-index: 3;
+        box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+  }
+   #showCategories a{
+ text-decoration: none;
+    color: aliceblue;
+    text-align: center;
+   }
+    #showCategories a:hover{
+      
+      color: rgb(87, 79, 113);
+      
+    }
+  
+   </style>

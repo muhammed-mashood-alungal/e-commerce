@@ -1,0 +1,71 @@
+<section class="container">
+   <div class="card">
+      <h5>ORDER ID : {{details._id}}</h5>
+      
+      <hr>
+      <table>
+        <tr>
+            <td class="first-col"> Order Created At</td>
+             <td class="sec-col">: {{details.CreatedAt}}</td >
+        </tr>
+        <tr>
+            <td class="first-col">User</td>
+             <td class="sec-col">: {{user}}</td >
+        </tr>
+        <tr>
+            <td class="first-col">Delivered Status</td>
+             <td class="sec-col">: {{details.deliveryStatus}}</td >
+        </tr>
+          <tr>
+            <td class="first-col">Total</td>
+             <td class="sec-col">: {{details.total}}</td >
+        </tr>
+           <tr>
+            <td class="first-col">payment Method</td>
+             <td class="sec-col">: {{details.paymentMethod}}</td >
+        </tr>
+         <tr>
+            <td class="first-col">Address</td>
+             <td class="sec-col">: {{details.orderDetails.address}}</td >
+        </tr>
+        <tr>
+            <td class="first-col">Products</td>
+             <td class="sec-col">
+                <br>
+                
+                {{#each details.Products}}
+                <div class="row">
+                   <p class="col-6">Product Id: <a href="/admin/product-details/{{this.item}}" class="product-id">{{this.item}}</a> </p> 
+                 <p class="col-6">Quantity: {{this.quantity}}</p>
+                </div>
+                
+                 {{/each}}
+                 </td>
+        </tr>
+        
+        
+
+
+       
+       
+
+      </table>
+
+   </div>
+
+</section>
+<style>
+    .product-id{
+        text-decoration: none;
+        color: brown;
+    }
+    .product-id:hover{
+        color:black
+    }
+    .card{
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 3rem;
+     box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+</style>

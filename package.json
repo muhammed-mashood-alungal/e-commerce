@@ -1,0 +1,30 @@
+{
+  "name": "e-commerce-project",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.5",
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "~1.4.4",
+    "debug": "^4.3.4",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.2",
+    "express-handlebars": "^7.1.2",
+    "express-session": "^1.17.3",
+    "fs-extra": "^11.1.1",
+    "hbs": "^4.2.0",
+    "http-errors": "^2.0.0",
+    "install": "^0.13.0",
+    "mongodb": "^6.2.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.0.1",
+    "npm": "^10.2.4",
+    "razorpay": "^2.9.2",
+    "uuid": "^9.0.1"
+  }
+}

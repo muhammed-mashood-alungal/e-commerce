@@ -1,0 +1,56 @@
+<section class="container">
+  <div class="row">
+    <div class="col-md-6">
+        <h1 style="color: green;">Add product</h1>
+
+        <form action="/admin/edit-product/{{details._id}}" enctype="multipart/form-data" method="post" >
+            <label for=""  >Name</label>
+            <input type="text" name="Name" value="{{details.Name}}" >
+            <br>
+ 
+             <label for="">Category</label>
+             <select  id="" name="category"> 
+               <option value="{{this.Category}}" >{{details.category}}</option>
+               {{#each Categories }}
+               <option value="{{this.Category}}">{{this.Category}}</option>
+               {{/each}}
+               
+             </select>
+            <br>
+
+            <label for=""  >Description</label>
+            <input type="text" name="description" value="{{details.description}}">
+            <br>
+
+             <label for=""  >price</label>
+            <input type="number" name="price" value="{{details.price}}">
+            <br> 
+
+            <label for="">is Featured?</label><br>
+            <p>Now :"{{details.isFeatured}}"</p>
+            <input type="radio" name="isFeatured" value="yes" >
+            <label for="">Yes</label><br>
+            <input type="radio" name="isFeatured" value="no">
+            <label for="">No</label>
+            <br>
+
+            <label for=""  >Image</label>
+            {{#each imgIndex}}
+            <img src="/product-images/{{../details._id}}/{{this.index}}.jpg" alt="" style="width:100px;height:auto;" id="imgView">
+            {{/each}}
+            <input type="file" name="img" onchange="viewImage(event)" multiple >
+            <br>
+             <label for="">Quantity</label>
+            <input type="number" value="{{details.quantity}}" name="quantity" style="width: 50px;">
+
+             <input type="submit" value="Submit " class="btn btn-success">
+        </form>
+    </div> 
+  </div>
+
+</section>
+<script>
+  function viewImage(event){
+    document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+  }
+</script>

@@ -23,7 +23,6 @@ module.exports={
             bcrypt.compare(data.password,password).then((response)=>{
               if(response==true){
                 resolve({status:true})
-                
               }else{
                 reject('Incorrect Password')
               } 
